@@ -9,17 +9,22 @@
           <input type="text" class="form-control" id="id" formControlName="id">
           <div class="form-text text-danger"
             *ngIf="registerForm.controls['id'].touched && registerForm.controls['id'].invalid">
-            <p *ngIf="registerForm.controls['id'].errors?.['required']">Please enter valid id</p>
+            <p *ngIf="registerForm.controls['id'].errors?.['required']">Please enter your id</p>
+            <p *ngIf="registerForm.controls['id'].errors?.['pattern']">Please enter a valid id consists of 14 number</p>
           </div>
         </div>
         <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
+          <label for="username" class="form-label">Full Name</label>
           <input type="text" class="form-control" id="username" formControlName="username">
-          <div
-            *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
-            class="text-danger">
-            <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</div>
+          <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" class="text-danger">
+            <p *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</p>
+            <p *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters long.</p>
+            <p *ngIf="registerForm.get('username')?.errors?.['pattern']">Username must contain only letters and numbers.</p>
+            <p *ngIf="registerForm.get('username')?.errors?.['threeSeparateNames']" class="text-danger">
+              Name must consist of at least three separate names.
+            </p>
           </div>
+          
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -27,27 +32,29 @@
           <div
             *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
             class="text-danger">
-            <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
-            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</div>
+            <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</p>
+            <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</p>
           </div>
         </div>
         <div class="mb-3">
-          <label for="paymentMethod" class="form-label">Payment Method</label>
-          <select class="form-select" id="paymentMethod" formControlName="paymentMethod">
-            <option value="">Select Payment Method</option>
-            <option value="credit">Credit Card</option>
-            <option value="debit">Debit Card</option>
-            <option value="paypal">PayPal</option>
+          <label for="year" class="form-label">Year</label>
+          <select class="form-select" id="year" formControlName="year">
+            <option value="first">First year</option>
+            <option value="second">Second year</option>
+            <option value="third">Third year</option>
+            <option value="forth">Forth year</option>
+            <option value="fifth">Fifth year</option>
           </select>
           <div
-            *ngIf="registerForm.get('paymentMethod')?.invalid && (registerForm.get('paymentMethod')?.dirty || registerForm.get('paymentMethod')?.touched)"
+            *ngIf="registerForm.get('year')?.invalid && (registerForm.get('year')?.dirty || registerForm.get('year')?.touched)"
             class="text-danger">
-            <div *ngIf="registerForm.get('paymentMethod')?.errors?.['required']">Payment Method is required.</div>
+            <p *ngIf="registerForm.get('year')?.errors?.['required']">Year is required.</p>
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">SignUp</button>
+          <button type="submit">SignUp</button>
         </div>
+        <p>Already have an account? <a href="/login">Login</a></p>
       </form>
     </div>
   </div>

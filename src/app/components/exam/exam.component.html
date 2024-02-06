@@ -1,1 +1,32 @@
-<p>exam works!</p>
+<div class="container">
+    <p class="text-danger">*Please note that when you answer the question and click next you can't go back</p>
+    <p class="text-danger">*تنويه هام: في حالة انتقالك للصفحة التالية لا يمكنك العودة للأسئلة مرة أخرى لذا لا تترك السؤال وتأكد من إجابتك</p>
+    
+    <div class="question-card" *ngFor="let question of getCurrentPageQuestions(); let i = index">
+        <h2>Question {{ i + 1 + (currentPage * pageSize) }}</h2>
+        <p>{{ question.text }}</p>
+        <ul>
+            <li *ngFor="let option of question.options">
+                <input type="radio" name="question{{ i }}" value="{{ option }}"
+                    (change)="checkAnswer(question, option)" [disabled]="question.selectedAnswer">
+                {{ option }}
+            </li>
+        </ul>
+        <div *ngIf="question.selectedAnswer === question.correctAnswer" class="correct-answer">&#x2714;</div>
+        <div *ngIf="question.selectedAnswer !== question.correctAnswer && question.selectedAnswer" class="wrong-answer">
+            &#x2718;</div>
+    </div>
+
+    <div class="navigation-buttons">
+        <button class="btn" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>
+        <button class="btn submit-btn" (click)="showResult()">Submit</button>
+
+    </div>
+    <div class="popup-overlay" [class.open]="isPopupOpen">
+        <div class="popup-content">
+            <h3>{{message}}</h3>
+            <button class="btn btn-danger text-center" (click)="closePopup()">Close</button>
+        </div>
+    </div>
+
+</div>

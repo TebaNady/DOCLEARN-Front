@@ -1,5 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+
+// Custom validator function to check if the name consists of at least three separate names
+export function threeSeparateNamesValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const name = control.value;
+    const names = name.split(' ').filter(Boolean); // Split the name into separate names
+
+    if (names.length < 3) {
+      return { 'threeSeparateNames': true }; // Return an error if there are less than three separate names
+    }
+    
+    return null; // Return null if the validation passes
+  };
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -14,12 +28,13 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      id: ['', [Validators.required, Validators.minLength(14), Validators.maxLength(14), Validators.pattern('^[0-9]{14}$')]],
-      username: ['', [Validators.required]],
+      id: ['', [Validators.required, Validators.pattern(/^\d{14}$/)]], // Apply the regular expression pattern directly
+      username: ['', [Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z ]*'), threeSeparateNamesValidator()]], // Apply the custom validator
       password: ['', [Validators.required, Validators.minLength(8)]],
-      paymentMethod: ['', [Validators.required]]
+      year: ['', [Validators.required]]
     });
   }
+  
 
   onSubmit(): void {
     if (this.registerForm.valid) {
