@@ -1,14 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { QuestionsService } from 'src/app/questions.service';
 
 @Component({
-  selector: 'app-exam',
-  templateUrl: './exam.component.html',
-  styleUrls: ['./exam.component.css']
+  selector: 'app-exam-end-round',
+  templateUrl: './exam-end-round.component.html',
+  styleUrls: ['./exam-end-round.component.css']
 })
-export class ExamComponent implements OnInit {
+export class ExamEndRoundComponent implements OnInit {
 
   questions !: any[]; // Array to hold questions
   currentPage: number = 0;
@@ -37,7 +37,7 @@ export class ExamComponent implements OnInit {
   
   getQuestions() {
     this.service.getAllQuestions().subscribe((res: any) => {
-      this.questions = res.questions.slice(0, 40);
+      this.questions = res.questions.slice(0, 10);
         this.totalQuestions = this.questions.length;
         this.isLoading = false;
       },
@@ -120,12 +120,8 @@ export class ExamComponent implements OnInit {
     if (event.ctrlKey && event.key === 'v') {
       event.preventDefault(); // Prevent Ctrl + V
       alert('You cannot copy or print the exam :D')
-    }}
-    @HostListener('window:popstate', ['$event'])
-    onPopState(event: any) {
-    if (window) {
-      alert('Back button is disabled. Please use the provided navigation.');
-      window.history.pushState(null, '', window.location.href);
     }
+    
+    // Add more conditions for other keyboard shortcuts
   }
 }

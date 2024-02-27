@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-choose-exam',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChooseExamComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-
+  navigateToExam(): void {
+    this.router.navigate(['/examType']); // Assuming 'exam' is the route name for the exam page
+  }
 }

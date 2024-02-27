@@ -1,61 +1,82 @@
 <div class="overall-container">
-    <div class="register-container">
-      <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <div class="d-flex justify-content-center">
-            <img src='../../../assets/images/logo.png' alt="login" height="150px">
-          </div>
-          <label for="id" class="form-label">ID</label>
-          <input type="text" class="form-control" id="id" formControlName="id">
-          <div class="form-text text-danger"
-            *ngIf="registerForm.controls['id'].touched && registerForm.controls['id'].invalid">
-            <p *ngIf="registerForm.controls['id'].errors?.['required']">Please enter your id</p>
-            <p *ngIf="registerForm.controls['id'].errors?.['pattern']">Please enter a valid id consists of 14 number</p>
-          </div>
+  <div class="register-container">
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input type="text" class="form-control" id="id" formControlName="id">
+        <div class="form-text text-danger"
+          *ngIf="registerForm.get('id')?.invalid && (registerForm.get('id')?.dirty || registerForm.get('id')?.touched)">
+          <p *ngIf="registerForm.get('id')?.errors?.['required']">Please enter your ID</p>
+          <p *ngIf="registerForm.get('id')?.errors?.['pattern']">ID must consist of 14 digits</p>
         </div>
-        <div class="mb-3">
-          <label for="username" class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="username" formControlName="username">
-          <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" class="text-danger">
-            <p *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</p>
-            <p *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters long.</p>
-            <p *ngIf="registerForm.get('username')?.errors?.['pattern']">Username must contain only letters and numbers.</p>
-            <p *ngIf="registerForm.get('username')?.errors?.['threeSeparateNames']" class="text-danger">
-              Name must consist of at least three separate names.
-            </p>
-          </div>
-          
+      </div>
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="fullName" formControlName="fullName">
+        <div class="text-danger" *ngIf="registerForm.get('fullName')?.invalid && (registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched)">
+          <p *ngIf="registerForm.get('fullName')?.errors?.['required']">Full name is required</p>
+          <p *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Full name must be at least 3 characters long</p>
+          <p *ngIf="registerForm.get('fullName')?.errors?.['threeSeparateNames']">Full name must consist of at least three separate names</p>
         </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" formControlName="password">
-          <div
-            *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
-            class="text-danger">
-            <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</p>
-            <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</p>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <div class="text-danger" *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+          <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</p>
+          <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</p>
         </div>
-        <div class="mb-3">
-          <label for="year" class="form-label">Year</label>
-          <select class="form-select" id="year" formControlName="year">
-            <option value="first">First year</option>
-            <option value="second">Second year</option>
-            <option value="third">Third year</option>
-            <option value="forth">Forth year</option>
-            <option value="fifth">Fifth year</option>
-          </select>
-          <div
-            *ngIf="registerForm.get('year')?.invalid && (registerForm.get('year')?.dirty || registerForm.get('year')?.touched)"
-            class="text-danger">
-            <p *ngIf="registerForm.get('year')?.errors?.['required']">Year is required.</p>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label for="year" class="form-label">Year</label>
+        <select class="form-select" id="year" formControlName="year">
+          <option value="" disabled selected>Select year</option>
+          <option value="First year">First year</option>
+          <option value="Second year">Second year</option>
+          <option value="Third year">Third year</option>
+          <option value="Fourth year">Fourth year</option>
+          <option value="Fifth year">Fifth year</option>
+        </select>
+        <div class="text-danger" *ngIf="registerForm.get('year')?.invalid && (registerForm.get('year')?.dirty || registerForm.get('year')?.touched)">
+          <p *ngIf="registerForm.get('year')?.errors?.['required']">Year is required</p>
         </div>
-        <div class="d-flex justify-content-center">
-          <button type="submit">SignUp</button>
+      </div>
+      <div class="mb-3">
+        <label for="university" class="form-label">University</label>
+        <select class="form-select" id="university" formControlName="university">
+          <option value="" disabled selected>Select university</option>
+          <option value="Nahda University">Nahda University</option>
+          <option value="Beni Suef University">Beni Suef University</option>
+          <option value="Beni Suef National University">Beni Suef National University</option>
+          <option value="Kasr Al Ainy">Kasr Al Ainy</option>
+          <option value="Fayoum University">Fayoum University</option>
+        </select>
+        <div class="text-danger" *ngIf="registerForm.get('university')?.invalid && (registerForm.get('university')?.dirty || registerForm.get('university')?.touched)">
+          <p *ngIf="registerForm.get('university')?.errors?.['required']">University is required</p>
         </div>
-        <p>Already have an account? <a href="/login">Login</a></p>
-      </form>
+      </div>
+      <div class="mb-3">
+        <label for="faculty" class="form-label">Faculty</label>
+        <select class="form-select" id="faculty" formControlName="faculty">
+          <option value="" disabled selected>Select faculty</option>
+          <option value="Faculty of Medicine">Faculty of Medicine</option>
+        </select>
+        <div class="text-danger" *ngIf="registerForm.get('faculty')?.invalid && (registerForm.get('faculty')?.dirty || registerForm.get('faculty')?.touched)">
+          <p *ngIf="registerForm.get('faculty')?.errors?.['required']">Faculty is required</p>
+        </div>
+      </div>
+      <div class="checkbox">
+        <label>
+            <input type="checkbox"> I agree to the terms and conditions, <a href="/termsAndConditions">Terms and Conditions</a>
+        </label>
     </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" [disabled]="registerForm.invalid || isLoading || !agreeToTerms">SignUp</button>
+      </div>
+      <div class="submit-error text-danger" style="font-size: small;" *ngIf="submitError">
+        {{ submitError }}
+      </div>
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </form>
   </div>
-  
+</div>
