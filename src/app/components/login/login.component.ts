@@ -29,11 +29,15 @@ export class LoginComponent implements OnInit {
             console.log('Login successful:', response);
             localStorage.setItem('token', response.token);
             // You can navigate to another page or handle the login success here
-          this.router.navigateByUrl('/paymentDisplay');
+            this.router.navigateByUrl('/choose');
           },
           (error) => {
             if (error.status === 401) {
               this.loginError = 'Invalid ID or password. Please try again.';
+            } else if (error.status === 403) {
+              this.loginError = 'Access forbidden. You do not have permission to access this resource.';
+            } else if (error.status === 404) {
+              this.loginError = 'Server not found. Please try again later.';
             } else {
               this.loginError = 'An error occurred while logging in. Please try again later.';
             }

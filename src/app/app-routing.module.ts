@@ -1,4 +1,3 @@
-import { PaymentChooseComponent } from './components/payment-choose/payment-choose.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
@@ -7,7 +6,6 @@ import { ChooseExamComponent } from './components/choose-exam/choose-exam.compon
 import { ExamComponent } from './components/exam/exam.component';
 import { ResultComponent } from './components/result/result.component';
 import { AuthGuard } from './auth.guard'; // Import the route guard
-import { PaymentComponent } from './payment/payment.component';
 import { ChooseExamTypeComponent } from './components/choose-exam-type/choose-exam-type.component';
 import { ExamEndRoundComponent } from './components/exam-end-round/exam-end-round.component';
 import { ChooseFacultyComponent } from './components/choose-faculty/choose-faculty.component';
@@ -20,11 +18,9 @@ const routes: Routes = [
   { path: 'choose', component: ChooseExamComponent, canActivate: [AuthGuard] }, // Apply guard here
   { path: 'exam', component: ExamComponent, canActivate: [AuthGuard] }, // Apply guard here
   { path: 'result', component: ResultComponent, canActivate: [AuthGuard] },// Apply guard here
-  { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
   { path: 'examType', component: ChooseExamTypeComponent, canActivate: [AuthGuard] },
   { path: 'exam-end-round', component: ExamEndRoundComponent, canActivate: [AuthGuard] },
   { path: 'faculty', component: ChooseFacultyComponent, canActivate: [AuthGuard] },
-  { path: 'paymentDisplay', component: PaymentChooseComponent, canActivate: [AuthGuard] },
   { path: 'termsAndConditions', component: TermsAndConditionsComponent}
 
 ];

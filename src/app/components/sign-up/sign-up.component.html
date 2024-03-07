@@ -67,11 +67,16 @@
       </div>
       <div class="checkbox">
         <label>
-            <input type="checkbox"> I agree to the terms and conditions, <a href="/termsAndConditions">Terms and Conditions</a>
+          <input type="checkbox" formControlName="checked">
+          I agree to the terms and conditions, <a href="/termsAndConditions">Terms and Conditions</a>
         </label>
-    </div>
+        <div class="text-danger" *ngIf="registerForm.get('checked')?.invalid && (registerForm.get('checked')?.dirty || registerForm.get('checked')?.touched)">
+          <p>Please agree to the terms and conditions</p>
+        </div>
+      </div>
+      
       <div class="d-flex justify-content-center">
-        <button type="submit" [disabled]="registerForm.invalid || isLoading || !agreeToTerms">SignUp</button>
+        <button type="submit">SignUp</button>
       </div>
       <div class="submit-error text-danger" style="font-size: small;" *ngIf="submitError">
         {{ submitError }}
